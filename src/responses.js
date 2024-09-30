@@ -11,9 +11,9 @@ const respond = (request, response, status, content, type) => {
     'Content-Length': Buffer.byteLength(content, 'utf8'),
   });
 
-  if(request.method !== 'HEAD') {
+  if (request.method !== 'HEAD') {
     response.write(content);
-  };
+  }
 
   response.end();
 };
@@ -33,7 +33,7 @@ const getUsers = (request, response) => {
 
 const notReal = (request, response) => {
   const status = 404;
-  const responseContent = { message: "ERROR: NOT FOUND" };
+  const responseContent = { message: 'ERROR: NOT FOUND' };
 
   return respondJSON(request, response, status, responseContent);
 };
@@ -43,7 +43,6 @@ const addUser = (request, response) => {
   const responseContent = {
     message: 'Name and age are both required.',
   };
-  
 
   const { name, age } = request.body;
 
@@ -57,10 +56,10 @@ const addUser = (request, response) => {
   if (!users[name]) {
     status = 201;
     users[name] = {
-      name: name,
+      name,
     };
   }
-  
+
   users[name].age = age;
 
   if (status === 201) {
@@ -77,7 +76,6 @@ const notFound = (request, response) => {
 
   return respondJSON(request, response, status, responseContent);
 };
-
 
 module.exports = {
   getIndex,
